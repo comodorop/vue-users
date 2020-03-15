@@ -1,6 +1,6 @@
 import axios from "axios";
 
-let baseUrl = "http://localhost:3000/";
+let baseUrl = "http://45.32.215.211:3000/";
 function post(url, data) {
   var promise = new Promise((resolve, reject) => {
     axios({

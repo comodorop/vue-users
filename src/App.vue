@@ -61,35 +61,8 @@
       dark
     >
       <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
+        Pablo Torres
       </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
     </v-app-bar>
 
     <v-content>
@@ -100,6 +73,7 @@
             label="Search ..."
             outlined
           ></v-text-field>
+         <span> {{count}} Registros encontrados</span>
       </v-col>
       <v-col cols="2">
         <v-btn x-large @click="getData" color="primary" >Buscar</v-btn>
@@ -159,6 +133,7 @@ export default {
     search: '',
     desserts: [],
     dialog: false,
+    count: 0,
     obj : {
       first_name: '',
       last_name: '',
@@ -173,6 +148,7 @@ export default {
       try {
         let data = await http.get(`v1/users?search=${this.search}`) 
         this.desserts = data.data.data
+        this.count = data.data.count
       } catch (error) {
         console.log(error)
       }
@@ -192,8 +168,6 @@ export default {
       } catch (error) {
         this.messageShow = true
         this.message = error.response.data.msg
-        console.log(error.response.data.msg)
-        console.log(error.message)
         setTimeout(() => {
           this.messageShow = false
         }, 1500);
